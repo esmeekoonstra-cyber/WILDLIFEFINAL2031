@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Basic biome\02_Basic Grass Biom things 1.png" />
+    <None Remove="Images\Basic biome\05_Basic Grass Biom things 1.png" />
+    <None Remove="Images\FemaleCharacter\00_FemaleCharacter.png" />
+    <None Remove="Images\Fruit_appel\00_Fruit+.png" />
+    <None Remove="Images\WildLifeStartScherm2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Basic biome\02_Basic Grass Biom things 1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Basic biome\05_Basic Grass Biom things 1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\FemaleCharacter\00_FemaleCharacter.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Fruit_appel\00_Fruit+.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\WildLifeStartScherm2.png" />
+  </ItemGroup>
+
+</Project>
