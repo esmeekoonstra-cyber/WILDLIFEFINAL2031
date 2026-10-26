@@ -20,34 +20,66 @@ namespace wild_life_2
     {
         private List<string> inventory = new();
 
+      
+
         public GameWindow()
         {
             InitializeComponent();
 
+            InventoryPanel.InventoryItems = inventory;
+            InventoryPanel.AppelGegetenEvent += Inventory_AppelGegetenEvent;
+
             KeyDown += GameWindow_KeyDown;
         }
+
+
+        private void Inventory_AppelGegetenEvent(object sender, EventArgs e)
+        {
+            GameWindow2 volgendLevel = new GameWindow2();
+            volgendLevel.Show();
+
+            Close();
+        }
+
 
         private void GameWindow_KeyDown(object sender, KeyEventArgs e)
         {
             double x = Canvas.GetLeft(Player);
             double y = Canvas.GetTop(Player);
 
+            double snelheid = 10;
+
+            // Nieuwe positie berekenen
+            double nieuweX = x;
+            double nieuweY = y;
+
             if (e.Key == Key.Left)
-                Canvas.SetLeft(Player, x - 10);
+                nieuweX -= snelheid;
 
             if (e.Key == Key.Right)
-                Canvas.SetLeft(Player, x + 10);
+                nieuweX += snelheid;
 
             if (e.Key == Key.Up)
-                Canvas.SetTop(Player, y - 10);
+                nieuweY -= snelheid;
 
             if (e.Key == Key.Down)
-                Canvas.SetTop(Player, y + 10);
+                nieuweY += snelheid;
 
-            
+            // Grenzen speelveld controleren
+            nieuweX = Math.Max(0, Math.Min(nieuweX,
+                GameCanvas.Width - Player.Width));
+
+            nieuweY = Math.Max(0, Math.Min(nieuweY,
+                GameCanvas.Height - Player.Height));
+
+            // Nieuwe positie toepassen
+            Canvas.SetLeft(Player, nieuweX);
+            Canvas.SetTop(Player, nieuweY);
+
+
             //3. Naar level 2. Als de appel is gegeten, wordt GameWindow2 geopend en wordt het eerste level gesloten. Is de appel niet gegeten? Dan blijf je gewoon in level 1.
-            
-            if (e.Key == Key.I)
+
+            /*if (e.Key == Key.I)
             {
                 Inventory inventoryWindow = new Inventory(inventory);
 
@@ -65,6 +97,17 @@ namespace wild_life_2
                 };
 
                 inventoryWindow.Show();
+            }*/
+            if (e.Key == Key.I)
+            {
+                InventoryPanel.UpdateInventory();
+
+                InventoryPanel.Visibility =
+                    InventoryPanel.Visibility == Visibility.Visible
+                    ? Visibility.Collapsed
+                    : Visibility.Visible;
+
+                return;
             }
 
             CheckFruitPickup();
@@ -72,12 +115,19 @@ namespace wild_life_2
 
         private void CheckFruitPickup()
         {
-            Rect playerRect = new Rect(
-                Canvas.GetLeft(Player),
-                Canvas.GetTop(Player),
-                Player.Width,
-                Player.Height);
+            if (!GameCanvas.Children.Contains(Vrucht))
+                return;
 
+            // Kleinere hitbox speler
+            double x = Canvas.GetLeft(Player);
+            double y = Canvas.GetTop(Player);
+
+            Rect playerRect = new Rect(
+                x + 12,
+                y + 10,
+                Player.Width - 24,
+                Player.Height - 15);
+            // hitbos fruit
             Rect fruitRect = new Rect(
                 Canvas.GetLeft(Vrucht),
                 Canvas.GetTop(Vrucht),
@@ -90,8 +140,22 @@ namespace wild_life_2
 
                 GameCanvas.Children.Remove(Vrucht);
                 InstructionText.Text = "Je hebt de vrucht opgepakt! Klik op I om je inventory te openen.";
-                MessageBox.Show("Appel opgepakt!");
+                ApplePopup.Visibility = Visibility.Visible;
             }
+
+            
         }
+        private void CloseApplePopup(object sender, RoutedEventArgs e)
+        {
+            ApplePopup.Visibility = Visibility.Collapsed;
+        }
+
+        private void QuitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+
+
     }
 }

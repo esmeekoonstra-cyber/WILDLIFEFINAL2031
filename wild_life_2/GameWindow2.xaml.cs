@@ -23,6 +23,8 @@ namespace wild_life_2
         {
             InitializeComponent();
 
+            InventoryPanel.InventoryItems = inventory;
+
             KeyDown += GameWindow2_KeyDown;
         }
 
@@ -48,10 +50,14 @@ namespace wild_life_2
 
             if (e.Key == Key.I)
             {
-                Inventory inventoryWindow =
-                    new Inventory(inventory);
+                InventoryPanel.UpdateInventory();
 
-                inventoryWindow.Show();
+                InventoryPanel.Visibility =
+                    InventoryPanel.Visibility == Visibility.Visible
+                    ? Visibility.Collapsed
+                    : Visibility.Visible;
+
+                return;
             }
         }
 
@@ -64,7 +70,7 @@ namespace wild_life_2
               Hout3,
               Hout4,
               Hout5
-    };
+            };
 
             Rect playerRect = new Rect(
                 Canvas.GetLeft(Player),
@@ -108,5 +114,9 @@ namespace wild_life_2
             }
         }
 
+        private void QuitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

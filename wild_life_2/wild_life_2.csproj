@@ -13,6 +13,7 @@
     <None Remove="Images\Basic biome\05_Basic Grass Biom things 1.png" />
     <None Remove="Images\FemaleCharacter\00_FemaleCharacter.png" />
     <None Remove="Images\Fruit_appel\00_Fruit+.png" />
+    <None Remove="Images\red apple.png" />
     <None Remove="Images\WildLifeStartScherm2.png" />
   </ItemGroup>
 
@@ -29,6 +30,7 @@
     <Resource Include="Images\Fruit_appel\00_Fruit+.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\red apple.png" />
     <Resource Include="Images\WildLifeStartScherm2.png" />
   </ItemGroup>
 

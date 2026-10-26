@@ -71,19 +71,34 @@ namespace wild_life_2
         }
     }*/
 
-    public partial class Inventory : Window
+    public partial class Inventory : UserControl
     {
-        private List<string> inventory;
+        private List<string> inventory = new List<string>();
         private string selectedItem;
+        public event EventHandler AppelGegetenEvent;
 
         public bool AppelGegeten { get; private set; } = false;
-        public Inventory(List<string> inventory)
+        /*public Inventory(List<string> inventory)
         {
             InitializeComponent();
 
             this.inventory = inventory;
 
             RefreshInventory();
+        }*/
+        public List<string> InventoryItems
+        {
+            get => inventory;
+            set
+            {
+                inventory = value;
+                RefreshInventory();
+            }
+        }
+
+        public Inventory()
+        {
+            InitializeComponent();
         }
 
         private void RefreshInventory()
@@ -100,6 +115,10 @@ namespace wild_life_2
 
                 InventoryGrid.Children.Add(button);
             }
+        }
+        public void UpdateInventory()
+        {
+            RefreshInventory();
         }
 
         private void InventoryItem_Click(object sender, RoutedEventArgs e)
@@ -124,6 +143,7 @@ namespace wild_life_2
             }
         }
 
+
         private void EatButton_Click(object sender, RoutedEventArgs e)
         {
             if (selectedItem == null)
@@ -132,14 +152,14 @@ namespace wild_life_2
             if (selectedItem == "Appel")
             {
                 inventory.Remove(selectedItem);
+
                 AppelGegeten = true;
 
-
-                MessageBox.Show( 
-                "Goed! Sluit je inventory om naar het volgende level te gaan.",
-                "Goed gedaan!",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+                MessageBox.Show(
+                    "Goed gedaan! Je gaat nu naar het volgende level.",
+                    "Goed gedaan!",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
 
                 selectedItem = null;
 
@@ -148,8 +168,11 @@ namespace wild_life_2
                 EatButton.IsEnabled = false;
 
                 RefreshInventory();
+
+                // Meld aan GameWindow dat de appel is gegeten.
+                AppelGegetenEvent?.Invoke(this, EventArgs.Empty);
             }
         }
-    }
 
+    }
 }
