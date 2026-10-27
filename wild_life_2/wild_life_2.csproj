@@ -12,6 +12,18 @@
     <None Remove="Images\Basic biome\02_Basic Grass Biom things 1.png" />
     <None Remove="Images\Basic biome\05_Basic Grass Biom things 1.png" />
     <None Remove="Images\FemaleCharacter\00_FemaleCharacter.png" />
+    <None Remove="Images\FemaleCharacter\Back_Idle.png" />
+    <None Remove="Images\FemaleCharacter\Back_Walk1.png" />
+    <None Remove="Images\FemaleCharacter\Back_Walk2.png" />
+    <None Remove="Images\FemaleCharacter\Front_Idle.png" />
+    <None Remove="Images\FemaleCharacter\Front_Walk1.png" />
+    <None Remove="Images\FemaleCharacter\Front_Walk2.png" />
+    <None Remove="Images\FemaleCharacter\Left_Idle.png" />
+    <None Remove="Images\FemaleCharacter\Left_Walk1.png" />
+    <None Remove="Images\FemaleCharacter\Left_Walk2.png" />
+    <None Remove="Images\FemaleCharacter\Right_Idle.png" />
+    <None Remove="Images\FemaleCharacter\Right_Walk1.png" />
+    <None Remove="Images\FemaleCharacter\Right_Walk2.png" />
     <None Remove="Images\Fruit_appel\00_Fruit+.png" />
     <None Remove="Images\red apple.png" />
     <None Remove="Images\WildLifeStartScherm2.png" />
@@ -24,9 +36,18 @@
     <Resource Include="Images\Basic biome\05_Basic Grass Biom things 1.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\FemaleCharacter\00_FemaleCharacter.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Images\FemaleCharacter\Back_Idle.png" />
+    <Resource Include="Images\FemaleCharacter\Back_Walk1.png" />
+    <Resource Include="Images\FemaleCharacter\Back_Walk2.png" />
+    <Resource Include="Images\FemaleCharacter\Front_Idle.png" />
+    <Resource Include="Images\FemaleCharacter\Front_Walk1.png" />
+    <Resource Include="Images\FemaleCharacter\Front_Walk2.png" />
+    <Resource Include="Images\FemaleCharacter\Left_Idle.png" />
+    <Resource Include="Images\FemaleCharacter\Left_Walk1.png" />
+    <Resource Include="Images\FemaleCharacter\Left_Walk2.png" />
+    <Resource Include="Images\FemaleCharacter\Right_Idle.png" />
+    <Resource Include="Images\FemaleCharacter\Right_Walk1.png" />
+    <Resource Include="Images\FemaleCharacter\Right_Walk2.png" />
     <Resource Include="Images\Fruit_appel\00_Fruit+.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

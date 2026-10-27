@@ -19,12 +19,20 @@ namespace wild_life_2
     {
         private List<string> inventory = new();
         private int houtAantal = 0;
+        private CharacterAnimator animator;
         public GameWindow2()
         {
             InitializeComponent();
 
-            InventoryPanel.InventoryItems = inventory;
+            KeyUp += GameWindow2_KeyUp;
 
+            animator = new CharacterAnimator(
+             Player,
+             "images/FemaleCharacter"
+             );
+
+            InventoryPanel.InventoryItems = inventory;
+            
             KeyDown += GameWindow2_KeyDown;
         }
 
@@ -33,17 +41,51 @@ namespace wild_life_2
             double x = Canvas.GetLeft(Player);
             double y = Canvas.GetTop(Player);
 
-            if (e.Key == Key.Left)
-                Canvas.SetLeft(Player, x - 10);
+            double snelheid = 10;
 
-            if (e.Key == Key.Right)
-                Canvas.SetLeft(Player, x + 10);
+            // Nieuwe positie berekenen
+            double nieuweX = x;
+            double nieuweY = y;
 
-            if (e.Key == Key.Up)
-                Canvas.SetTop(Player, y - 10);
+            // Bewegen met pijltjestoetsen en WASD
+            if (e.Key == Key.Left || e.Key == Key.A)
+            {
+                nieuweX -= snelheid;
+                animator.SetDirection("Left");
+                animator.SetMoving(true);
+            }
 
-            if (e.Key == Key.Down)
-                Canvas.SetTop(Player, y + 10);
+            if (e.Key == Key.Right || e.Key == Key.D)
+            {
+                nieuweX += snelheid;
+                animator.SetDirection("Right");
+                animator.SetMoving(true);
+            }
+
+            if (e.Key == Key.Up || e.Key == Key.W)
+            {
+                nieuweY -= snelheid;
+                animator.SetDirection("Back");
+                animator.SetMoving(true);
+            }
+
+            if (e.Key == Key.Down || e.Key == Key.S)
+            {
+                nieuweY += snelheid;
+                animator.SetDirection("Front");
+                animator.SetMoving(true);
+            }
+            // Grenzen speelveld controleren
+            nieuweX = Math.Max(0, Math.Min(nieuweX,
+                GameCanvas.Width - Player.Width));
+
+            nieuweY = Math.Max(0, Math.Min(nieuweY,
+                GameCanvas.Height - Player.Height));
+
+            // Nieuwe positie toepassen
+            Canvas.SetLeft(Player, nieuweX);
+            Canvas.SetTop(Player, nieuweY);
+
 
             CheckHoutPickup();
 
@@ -58,6 +100,21 @@ namespace wild_life_2
                     : Visibility.Visible;
 
                 return;
+            }
+        }
+
+        private void GameWindow2_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.W ||
+                e.Key == Key.A ||
+                e.Key == Key.S ||
+                e.Key == Key.D ||
+                e.Key == Key.Up ||
+                e.Key == Key.Down ||
+                e.Key == Key.Left ||
+                e.Key == Key.Right)
+            {
+                animator.SetMoving(false);
             }
         }
 
@@ -103,9 +160,7 @@ namespace wild_life_2
                         Canvas.SetTop(Huis, 150);
                         Panel.SetZIndex(Huis, 10);
 
-                        MessageBox.Show(
-                            "Je hebt genoeg hout verzameld! " +
-                            "Ga naar het huis om het te bouwen.");
+                        HoutPopup.Visibility = Visibility.Visible;
                     }
 
 
@@ -113,10 +168,16 @@ namespace wild_life_2
                 }
             }
         }
+        private void CloseHoutPopup(object sender, RoutedEventArgs e)
+        {
+            HoutPopup.Visibility = Visibility.Collapsed;
+        }
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
+       
+
     }
 }

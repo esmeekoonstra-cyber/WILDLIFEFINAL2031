@@ -155,11 +155,7 @@ namespace wild_life_2
 
                 AppelGegeten = true;
 
-                MessageBox.Show(
-                    "Goed gedaan! Je gaat nu naar het volgende level.",
-                    "Goed gedaan!",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
+                VolgendLevelEvent?.Invoke(this, EventArgs.Empty);
 
                 selectedItem = null;
 
@@ -170,9 +166,10 @@ namespace wild_life_2
                 RefreshInventory();
 
                 // Meld aan GameWindow dat de appel is gegeten.
-                AppelGegetenEvent?.Invoke(this, EventArgs.Empty);
+               // AppelGegetenEvent?.Invoke(this, EventArgs.Empty);
             }
         }
 
+        public event EventHandler VolgendLevelEvent;
     }
 }

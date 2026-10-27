@@ -20,28 +20,23 @@ namespace wild_life_2
     {
         private List<string> inventory = new();
 
-      
+        private CharacterAnimator animator;
 
         public GameWindow()
         {
             InitializeComponent();
-
+            KeyUp += GameWindow_KeyUp;
+            animator = new CharacterAnimator(
+                  Player,
+                 "images/FemaleCharacter"
+                );
             InventoryPanel.InventoryItems = inventory;
-            InventoryPanel.AppelGegetenEvent += Inventory_AppelGegetenEvent;
+            InventoryPanel.VolgendLevelEvent += Inventory_VolgendLevelEvent;
 
             KeyDown += GameWindow_KeyDown;
         }
 
-
-        private void Inventory_AppelGegetenEvent(object sender, EventArgs e)
-        {
-            GameWindow2 volgendLevel = new GameWindow2();
-            volgendLevel.Show();
-
-            Close();
-        }
-
-
+      
         private void GameWindow_KeyDown(object sender, KeyEventArgs e)
         {
             double x = Canvas.GetLeft(Player);
@@ -53,18 +48,34 @@ namespace wild_life_2
             double nieuweX = x;
             double nieuweY = y;
 
-            if (e.Key == Key.Left)
+            // Bewegen met pijltjestoetsen en WASD
+            if (e.Key == Key.Left || e.Key == Key.A)
+            {
                 nieuweX -= snelheid;
+                animator.SetDirection("Left");
+                animator.SetMoving(true);
+            }
 
-            if (e.Key == Key.Right)
+            if (e.Key == Key.Right || e.Key == Key.D)
+            {
                 nieuweX += snelheid;
+                animator.SetDirection("Right");
+                animator.SetMoving(true);
+            }
 
-            if (e.Key == Key.Up)
+            if (e.Key == Key.Up || e.Key == Key.W)
+            {
                 nieuweY -= snelheid;
+                animator.SetDirection("Back");
+                animator.SetMoving(true);
+            }
 
-            if (e.Key == Key.Down)
+            if (e.Key == Key.Down || e.Key == Key.S)
+            {
                 nieuweY += snelheid;
-
+                animator.SetDirection("Front");
+                animator.SetMoving(true);
+            }
             // Grenzen speelveld controleren
             nieuweX = Math.Max(0, Math.Min(nieuweX,
                 GameCanvas.Width - Player.Width));
@@ -113,6 +124,21 @@ namespace wild_life_2
             CheckFruitPickup();
         }
 
+        private void GameWindow_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.W ||
+                e.Key == Key.A ||
+                e.Key == Key.S ||
+                e.Key == Key.D ||
+                e.Key == Key.Up ||
+                e.Key == Key.Down ||
+                e.Key == Key.Left ||
+                e.Key == Key.Right)
+            {
+                animator.SetMoving(false);
+            }
+        }
+
         private void CheckFruitPickup()
         {
             if (!GameCanvas.Children.Contains(Vrucht))
@@ -155,7 +181,16 @@ namespace wild_life_2
             Application.Current.Shutdown();
         }
 
+        private void Inventory_VolgendLevelEvent(object sender, EventArgs e)
+        {
+            GoedGedaanPopup.Visibility = Visibility.Visible;
+        }
+        private void VerderButton_Click(object sender, RoutedEventArgs e)
+        {
+            GameWindow2 volgendLevel = new GameWindow2();
+            volgendLevel.Show();
 
-
+            this.Close();
+        }
     }
 }

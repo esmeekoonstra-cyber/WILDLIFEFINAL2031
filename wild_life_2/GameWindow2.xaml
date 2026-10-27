@@ -18,17 +18,18 @@
                 Height="450"
                 Background="LightGreen">
 
+
                 <Image x:Name="Player"
-         Source="/Images/FemaleCharacter/00_FemaleCharacter.png"
-         Width="50"
-         Height="50"
-         Stretch="Uniform"
-         Canvas.Left="100"
-         Canvas.Top="100"
-         RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                   Width="50"
+                   Height="50"
+                   Canvas.Left="100"
+                   Canvas.Top="100"
+                   Source="images/FemaleCharacter/Front_Idle.png"
+                   Stretch="Fill"
+                   RenderOptions.BitmapScalingMode="NearestNeighbor"/>
 
 
-        <!-- Houtbundel 1 -->
+                <!-- Houtbundel 1 -->
         <Image x:Name="Hout1"
        Source="/Images/Basic biome/05_Basic Grass Biom things 1.png"
        Width="32"
@@ -111,9 +112,72 @@
             </Canvas>
         </Viewbox>
 
+        <!-- POPUP: GENOEG HOUT VERZAMELD -->
+        <Border x:Name="HoutPopup"
+        Visibility="Collapsed"
+        Background="#CC101820"
+        Panel.ZIndex="250"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
+
+            <Border Background="#FF243447"
+            BorderBrush="#FF101820"
+            BorderThickness="8"
+            Padding="8"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+
+                <Border Background="#FFFFDFA0"
+                BorderBrush="#FF70A050"
+                BorderThickness="4"
+                Padding="20">
+
+                    <StackPanel Width="360">
+
+                        <TextBlock Text="JE HEBT GENOEG HOUT VERZAMELD"
+                           FontFamily="Press Start 2P"
+                           FontSize="14"
+                           Foreground="#FF385B35"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,24"/>
+
+                        <TextBlock Text="Ga naar het huis om het te bouwen."
+                           FontFamily="Press Start 2P"
+                           FontSize="11"
+                           Foreground="#FF49351F"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,24"/>
+
+                        <Border Background="#FF426B3C"
+                        BorderBrush="#FF263D24"
+                        BorderThickness="4"
+                        Padding="4">
+
+                            <Button Content="VERDER"
+                            FontFamily="Press Start 2P"
+                            FontSize="10"
+                            Foreground="White"
+                            Background="#FF426B3C"
+                            BorderThickness="0"
+                            Padding="12"
+                            Cursor="Hand"
+                            Click="CloseHoutPopup"/>
+                        </Border>
+
+                    </StackPanel>
+                </Border>
+            </Border>
+        </Border>
+
+
+        
         <local:Inventory x:Name="InventoryPanel"
                      Visibility="Collapsed"
                      Panel.ZIndex="200"/>
+
+       
 
         <Button x:Name="QuitButton"
         Content="QUIT"

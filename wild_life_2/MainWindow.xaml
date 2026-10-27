@@ -74,7 +74,8 @@
             Background="#D99A5B"
             Foreground="Black"
             BorderBrush="#59351F"
-            BorderThickness="4"/>
+            BorderThickness="4"
+            Click="LoadButton_Click"/>
 
                     <Button
             Content="NEW GAME"
@@ -86,8 +87,9 @@
             Background="#D99A5B"
             Foreground="Black"
             BorderBrush="#59351F"
-            BorderThickness="4"/>
-
+            BorderThickness="4"
+            Click="NewButton_Click"/>
+            
                     <Button
             Content="INSTELLINGEN"
             Height="40"
